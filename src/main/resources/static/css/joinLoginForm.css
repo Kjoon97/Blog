@@ -1,0 +1,8 @@
+.container {
+        max-width: 560px;
+        margin-bottom :50px;
+        margin-top :50px;
+}
+.form-check-label{
+           float:right;
+}

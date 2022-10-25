@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="/layout/header.html :: header"></div>
+    <link rel ="stylesheet" th:href="@{/css/joinLoginForm.css}">
+</head>
+
+<body>
+<div th:replace="/layout/navi.html :: navi"></div>
+<br/><br/>
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="username">username:</label>
+            <input type="text" class="form-control" placeholder="Enter username" id="username">
+        </div>
+        <div class="form-group">
+            <label for="email">email:</label>
+            <input type="email" class="form-control" placeholder="Enter email" id="email">
+        </div>
+        <div class="form-group">
+            <label for="password">password:</label>
+            <input type="password" class="form-control" placeholder="Enter password" id="password">
+        </div>
+        <br/>
+        <hr class="my-4">
+    </form>
+    <div class="row">
+        <div class="col">
+            <button id="btn-save" class="w-100 btn btn-primary btn-lg">회원 가입</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='items.html'" th:onclick="|location.href='@{/}'|" type="button">취소</button>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/layout/footer.html :: footer"></footer>
+</body>
+</html>
+
