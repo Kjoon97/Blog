@@ -1,4 +1,4 @@
-package com.kang.blog.Controller;
+package com.kang.blog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
