@@ -35,4 +35,8 @@ public class User {
 
     @CreationTimestamp
     private Timestamp createDate;            //repository.save() 후-> 데이터 createDate에 저장 후 -> db에 insert.
+
+    public void setRoleType(RoleType role){
+        this.role =role;
+    }
 }
