@@ -1,8 +1,10 @@
 package com.kang.blog.service;
 
+import com.kang.blog.model.RoleType;
 import com.kang.blog.model.User;
 import com.kang.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,16 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
 
     //회원가입.
     @Transactional
-    public int register(User user){
-        try{
-            userRepository.save(user);
-            return 1;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return -1;
+    public void register(User user) {
+        String rawPassword = user.getPassword();
+        String encPassword = encoder.encode(rawPassword);       //비밀번호 해쉬 인코딩.
+        user.setRoleAndEncPassword(RoleType.USER, encPassword);
+        userRepository.save(user);
     }
 }

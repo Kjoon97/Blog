@@ -16,9 +16,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig{
 
     @Bean
+    public BCryptPasswordEncoder encodePWD(){      //비밀번호 해쉬 인코딩 매소드 빈 등록
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable()                           //csrf 토큰 비활성화.
                 .authorizeHttpRequests()                    // 요청이 들어올 때,
                 .antMatchers("/auth/**","/","/js/**","/css/**","/img/**")        // auth/이하 모든 경로는
                 .permitAll()                                // 미인증, 인증자 모두 접속 허용
