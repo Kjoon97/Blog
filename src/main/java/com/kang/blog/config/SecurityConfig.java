@@ -1,7 +1,11 @@
 package com.kang.blog.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,11 +16,13 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration        //빈 등록
 @EnableWebSecurity   //시큐리티 필터 설정,등록
+@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)  // 특정 주소로 접근 시, 권한 및 인증을 미리 체크.
 public class SecurityConfig{
 
+    //비밀번호 해쉬 인코딩 매소드 빈 등록
     @Bean
-    public BCryptPasswordEncoder encodePWD(){      //비밀번호 해쉬 인코딩 매소드 빈 등록
+    public BCryptPasswordEncoder encodePWD(){
         return new BCryptPasswordEncoder();
     }
 
@@ -31,7 +37,9 @@ public class SecurityConfig{
                 .authenticated()                            // 인증 필수이다.
                 .and()
                 .formLogin()
-                .loginPage("/auth/loginForm");             // 로그인 페이지 주소 설정.
+                .loginPage("/auth/loginForm")              // 로그인 페이지 주소 설정.
+                .loginProcessingUrl("/auth/login")        //스프링 시큐리티가 해당 주소로 요청오는 로그인 가로채고 대신 로그인.
+                .defaultSuccessUrl("/");                  //로그인 성공 시 이동 경로.
         return http.build();
     }
 }
