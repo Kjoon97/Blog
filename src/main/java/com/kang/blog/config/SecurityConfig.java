@@ -1,5 +1,6 @@
 package com.kang.blog.config;
 
+import com.kang.blog.config.oauth.PrincipalOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true)  // 특정 주소로 접근 시, 권한 및 인증을 미리 체크.
 public class SecurityConfig{
 
-    //비밀번호 해쉬 인코딩 매소드 빈 등록
-    @Bean
-    public BCryptPasswordEncoder encodePWD(){
-        return new BCryptPasswordEncoder();
-    }
+    private final PrincipalOauth2UserService principalOauth2UserService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -39,7 +36,13 @@ public class SecurityConfig{
                 .formLogin()
                 .loginPage("/auth/loginForm")              // 로그인 페이지 주소 설정.
                 .loginProcessingUrl("/auth/login")        //스프링 시큐리티가 해당 주소로 요청오는 로그인 가로채고 대신 로그인.
-                .defaultSuccessUrl("/");                  //로그인 성공 시 이동 경로.
+                .defaultSuccessUrl("/")                  //로그인 성공 시 이동 경로.
+                .and()
+                .oauth2Login()
+                .loginPage("/auth/loginForm")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);  //Oauth 로그인 완료 후 후처리(엑세스 토큰, 사용자 프로필 정보 받기)
+
         return http.build();
     }
 }

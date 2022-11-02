@@ -3,19 +3,29 @@ package com.kang.blog.config.auth;
 import com.kang.blog.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 //스프링 시큐리티가 로그인 요청을 가로채고 로그인을 진행하면
 //스프링 시큐리티의 고유 세션 저장소에 UserDetails 타입의 객체(PrincipalDetail)를 저장한다.
-public class PrincipalDetail implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user;
+    private Map<String,Object> attributes;
 
-    public PrincipalDetail(User user){
+    //일반 시큐리티 로그인할 때 사용하는 생성자
+    public PrincipalDetails(User user){
         this.user = user;
+    }
+
+    //OAuth 로그인할 때 사용하는 생성자
+    public PrincipalDetails(User user, Map<String, Object> attributes){
+        this.user = user;
+        this.attributes = attributes;
     }
 
     @Override
@@ -60,5 +70,17 @@ public class PrincipalDetail implements UserDetails {
             return "ROLE_"+user.getRole();
         });       //앞에 꼭 "ROLE_"붙여줘야 시큐리티가 인식함.
         return collectors;
+    }
+
+    //Oauth
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    //Oauth
+    @Override
+    public String getName() {
+        return null;
     }
 }
