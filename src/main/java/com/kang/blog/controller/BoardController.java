@@ -10,5 +10,11 @@ public class BoardController {
     public String index(){
         return "index";
     }
+
+    //글 작성 페이지
+    @GetMapping("/board/saveForm")
+    public String saveForm(){
+        return "board/saveForm";
+    }
     
 }

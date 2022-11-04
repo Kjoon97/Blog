@@ -1,9 +1,6 @@
 package com.kang.blog.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -28,7 +25,6 @@ public class Board {
     @Lob  //대용량 데이터 처리(summernote 라이브러리 사용할 때 html태그가 섞이므로)
     private String content;
 
-    @ColumnDefault("0")
     private int count;   //조회 수
 
     @CreationTimestamp
@@ -41,4 +37,9 @@ public class Board {
 
     @OneToMany(mappedBy = "board")
     private List<Reply> replies;
+
+    public void setterCountAndUser(int count, User user){
+        this.count = count;
+        this.user = user;
+    }
 }

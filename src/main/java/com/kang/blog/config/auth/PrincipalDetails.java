@@ -1,6 +1,7 @@
 package com.kang.blog.config.auth;
 
 import com.kang.blog.model.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 //스프링 시큐리티가 로그인 요청을 가로채고 로그인을 진행하면
 //스프링 시큐리티의 고유 세션 저장소에 UserDetails 타입의 객체(PrincipalDetail)를 저장한다.
+@Getter
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private User user;
