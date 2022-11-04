@@ -5,39 +5,15 @@
 <div th:replace="/layout/navi.html :: navi"></div>
 <br><br>
 <div class="container">
-  <div class="card m-2">
+  <div class="card m-2" th:each ="board : ${boards}">
     <div class="card-body">
       <div class="row">
       <div class="col">
-      <h4 class="card-title">제목</h4>
+      <h4 class="card-title" th:text="${board.title}">제목</h4>
       </div>
       <div class="col">
-      <a href="#" class="btn btn-secondary" style="float: right">상세 보기</a>
+      <a th:href="@{/board/{id}(id=${board.id})}" class="btn btn-secondary" style="float: right">상세 보기</a>
       </div>
-      </div>
-    </div>
-  </div>
-  <div class="card m-2">
-    <div class="card-body">
-      <div class="row">
-        <div class="col">
-          <h4 class="card-title">제목</h4>
-        </div>
-        <div class="col">
-          <a href="#" class="btn btn-secondary" style="float: right">상세 보기</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card m-2">
-    <div class="card-body">
-      <div class="row">
-        <div class="col">
-          <h4 class="card-title">제목</h4>
-        </div>
-        <div class="col">
-          <a href="#" class="btn btn-secondary" style="float: right">상세 보기</a>
-        </div>
       </div>
     </div>
   </div>
