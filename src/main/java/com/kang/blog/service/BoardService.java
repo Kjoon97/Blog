@@ -26,7 +26,16 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    //글 목록
     public List<Board> boardList(){
         return boardRepository.findAll();
+    }
+
+    //게시물 상세보기
+    public Board readDetail(int id){
+        return boardRepository.findById(id)
+                .orElseThrow(()->{
+                    return new IllegalArgumentException("글 상세보기 실패: 해당 게시물을 찾을 수 없습니다.");
+                });
     }
 }

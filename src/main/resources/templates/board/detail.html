@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/layout/header.html :: header"></head>
+<body>
+<div th:replace="/layout/navi.html :: navi"></div>
+<br><br>
+<div class="container">
+        <div>
+            <h3 th:text="${board.title}" id="title"></h3>
+        </div>
+        <hr>
+        <div>
+            <div th:utext="${board.content}" id="content"></div>
+        </div>
+        <hr>
+    <br/><br/>
+    <div class = buttonDiv style="float:right;">
+        <button class="btn btn-warning">수정</button>
+        <button class="btn btn-danger">삭제</button>
+        <button class="btn btn-secondary" onclick="history.back()">뒤로가기</button>
+    </div>
+</div>
+<footer th:replace="/layout/footer.html :: footer"></footer>
+</body>
+</html>
