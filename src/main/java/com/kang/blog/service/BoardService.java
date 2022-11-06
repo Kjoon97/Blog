@@ -46,4 +46,16 @@ public class BoardService {
     public void delete(int id){
         boardRepository.deleteById(id);
     }
+
+    //게시물 수정하기
+    @Transactional
+    public void updateBoard(int id, Board requestBoard){
+        Board findBoard = boardRepository.findById(id)
+                .orElseThrow(()->{
+                    return new IllegalArgumentException("게시글 수정 실패: 해당 게시물을 찾을 수 없습니다.");
+                });;  //조회해서 영속성 컨텍스트 1차 캐시에 영속화 됨.
+
+        findBoard.updateBoard(requestBoard.getTitle(),requestBoard.getContent()); //영속화 객체 변경.
+        //해당 함수 종료 -> 트랜잭션 종료(커밋) -> 더티체킹 -> 자동 업데이트
+    }
 }
