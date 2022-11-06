@@ -5,21 +5,37 @@
 <div th:replace="/layout/navi.html :: navi"></div>
 <br><br>
 <div class="container">
-        <div>
-            <h3 th:text="${board.title}" id="title"></h3>
-        </div>
-        <hr>
-        <div>
-            <div th:utext="${board.content}" id="content"></div>
-        </div>
-        <hr>
+    <h3 th:text ="${board.id}" id ="id" style="display:none">글 번호</h3>
+    <div>
+        작성자: <span><i th:text="${board.user.username}"></i></span>
+    </div>
+    <br/>
+    <div>
+        <h3 th:text="${board.title}" id="title"></h3>
+    </div>
+    <hr>
+    <div>
+        <div th:utext="${board.content}" id="content"></div>
+    </div>
+    <hr>
     <br/><br/>
-    <div class = buttonDiv style="float:right;">
-        <button class="btn btn-warning">수정</button>
-        <button class="btn btn-danger">삭제</button>
-        <button class="btn btn-secondary" onclick="history.back()">뒤로가기</button>
+    <!--    글쓴이 당사자에게만 수정, 삭제 버튼 보이기.-->
+    <div th:if="${board.getUser().id == principal.user.id}">
+        <div class=buttonDiv style="float:right;">
+            <button class="btn btn-warning">수정</button>
+            <button class="btn btn-danger" id="btn-delete">삭제</button>
+            <button class="btn btn-secondary" onclick="history.back()">뒤로가기</button>
+        </div>
+    </div>
+
+    <!--    글쓴이 아니면 수정, 삭제 버튼 안보이게 하기.-->
+    <div th:unless="${board.getUser().id == principal.user.id}">
+        <div class=buttonDiv style="float:right;">
+            <button class="btn btn-secondary" onclick="history.back()">뒤로가기</button>
+        </div>
     </div>
 </div>
+<script src="/js/board.js"></script>
 <footer th:replace="/layout/footer.html :: footer"></footer>
 </body>
 </html>

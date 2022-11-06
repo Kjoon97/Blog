@@ -3,6 +3,9 @@ let index ={
          $("#btn-save").on("click",()=>{   //'글 작성' 버튼 클릭하면 해당 함수 호출 됨.
              this.save();
          });
+          $("#btn-delete").on("click",()=>{   //'글 삭제' 버튼 클릭하면 해당 함수 호출 됨.
+              this.deleteById();
+          });
      },
 
      save: function(){
@@ -26,7 +29,22 @@ let index ={
          }).fail(function(error){
             alert(JSON.stringify(error));
          });
-     }
+     },
+
+     deleteById: function(){
+              var id = $("#id").text();     //detail.html에서의 ${board.id} 값 가져옴.
+              //ajax 호출 default가 비동기 호출.
+              $.ajax({
+                 type: "DELETE",
+                 url: "/api/board/"+id,
+                 dataType: "json"
+              }).done(function(resp){
+                 alert("글 삭제가 완료 되었습니다.");
+                 location.href ="/";
+              }).fail(function(error){
+                 alert(JSON.stringify(error));
+              });
+          }
 }
 
 index.init();
