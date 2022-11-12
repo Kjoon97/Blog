@@ -3,6 +3,9 @@ let index ={
          $("#btn-save").on("click",()=>{   //'회원가입' 버튼 클릭하면 해당 함수 호출 됨.
              this.save();
          });
+         $("#btn-update").on("click",()=>{   //'회원수정' 버튼 클릭하면 해당 함수 호출 됨.
+              this.update();
+         });
      },
 
      save: function(){
@@ -28,7 +31,29 @@ let index ={
          }).fail(function(error){
             alert(JSON.stringify(error));
          });    //ajax 통신으로 3개의 데이터 json으로 변환 후 insert 요청.
-     }
+     },
+
+      update: function(){
+              let data = {
+                    id: $("#id").val(),
+                    username: $("#username").val(),
+                    password: $("#password").val(),
+                    email: $("#email").val()
+              };
+
+              $.ajax({
+                 type: "PUT",
+                 url: "/user",
+                 data: JSON.stringify(data),
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json"
+              }).done(function(resp){
+                 alert("회원 수정이 완료 되었습니다.");
+                 location.href ="/";
+              }).fail(function(error){
+                 alert(JSON.stringify(error));
+              });
+          }
 }
 
 index.init();

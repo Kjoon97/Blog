@@ -24,6 +24,11 @@ public class SecurityConfig{
     private final PrincipalOauth2UserService principalOauth2UserService;
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()                           //csrf 토큰 비활성화.
