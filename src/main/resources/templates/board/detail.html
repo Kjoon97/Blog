@@ -39,13 +39,18 @@
     <hr>
     <!--댓글-->
     <div class="card">
-        <div class="card-body"><textarea class="form-control" rows="1"></textarea></div>
-        <div class="card-footer d-flex justify-content-end"><button class="btn btn-primary">등록</button></div>
+        <form>
+            <input type="hidden" th:id="boardId" th:value="${board.id}">
+            <div class="card-body"><textarea id="reply-content" class="form-control" rows="1"></textarea></div>
+            <div class="card-footer d-flex justify-content-end">
+                <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+            </div>
+        </form>
     </div>
     <br/>
     <div class="card">
         <div class="card-header">댓글 리스트</div>
-        <ul th:each="reply : ${board.replies}" id="reply--box" class="list-group">
+        <ul th:each="reply : ${board.replies}" th:id="reply--box" class="list-group">
             <li th:id="|reply--${reply.id}|" class="list-group-item d-flex justify-content-between">
                 <div th:text="${reply.content}">댓글 내용입니다!!</div>
                 <div class="d-flex">

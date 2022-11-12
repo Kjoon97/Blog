@@ -3,6 +3,7 @@ package com.kang.blog.controller.api;
 import com.kang.blog.config.auth.PrincipalDetails;
 import com.kang.blog.dto.ResponseDto;
 import com.kang.blog.model.Board;
+import com.kang.blog.model.Reply;
 import com.kang.blog.model.User;
 import com.kang.blog.service.BoardService;
 import com.kang.blog.service.UserService;
@@ -36,5 +37,12 @@ public class BoardApiController {
     public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
         boardService.updateBoard(id, board);
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+    }
+
+    //댓글 작성
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetails principal){
+        boardService.registerReply(principal.getUser(), boardId, reply);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }

@@ -35,4 +35,10 @@ public class Reply {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name ="userId")
     private User user;
+
+    //댓글 쓰기 용 매소드
+    public void setterUserAndBoard(User user, Board board){
+        this.user = user;
+        this.board = board;
+    }
 }

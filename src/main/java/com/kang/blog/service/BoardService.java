@@ -2,9 +2,11 @@ package com.kang.blog.service;
 
 import com.kang.blog.config.auth.PrincipalDetails;
 import com.kang.blog.model.Board;
+import com.kang.blog.model.Reply;
 import com.kang.blog.model.RoleType;
 import com.kang.blog.model.User;
 import com.kang.blog.repository.BoardRepository;
+import com.kang.blog.repository.ReplyRepository;
 import com.kang.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,12 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
 
     //글 작성
     @Transactional
@@ -57,5 +61,14 @@ public class BoardService {
 
         findBoard.updateBoard(requestBoard.getTitle(),requestBoard.getContent()); //영속화 객체 변경.
         //해당 함수 종료 -> 트랜잭션 종료(커밋) -> 더티체킹 -> 자동 업데이트
+    }
+
+    //댓글 작성하기
+    @Transactional
+    public void registerReply(User user, int boardId, Reply requestReply){
+        Board board = boardRepository.findById(boardId).get();
+        requestReply.setterUserAndBoard(user, board);
+
+        replyRepository.save(requestReply);
     }
 }
