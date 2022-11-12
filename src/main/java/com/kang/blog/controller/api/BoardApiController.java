@@ -1,6 +1,7 @@
 package com.kang.blog.controller.api;
 
 import com.kang.blog.config.auth.PrincipalDetails;
+import com.kang.blog.dto.ReplySaveRequestDto;
 import com.kang.blog.dto.ResponseDto;
 import com.kang.blog.model.Board;
 import com.kang.blog.model.Reply;
@@ -41,8 +42,8 @@ public class BoardApiController {
 
     //댓글 작성
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetails principal){
-        boardService.registerReply(principal.getUser(), boardId, reply);
+    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto, @AuthenticationPrincipal PrincipalDetails principal){
+        boardService.registerReply(replySaveRequestDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }

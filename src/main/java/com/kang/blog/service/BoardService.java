@@ -1,6 +1,7 @@
 package com.kang.blog.service;
 
 import com.kang.blog.config.auth.PrincipalDetails;
+import com.kang.blog.dto.ReplySaveRequestDto;
 import com.kang.blog.model.Board;
 import com.kang.blog.model.Reply;
 import com.kang.blog.model.RoleType;
@@ -65,10 +66,7 @@ public class BoardService {
 
     //댓글 작성하기
     @Transactional
-    public void registerReply(User user, int boardId, Reply requestReply){
-        Board board = boardRepository.findById(boardId).get();
-        requestReply.setterUserAndBoard(user, board);
-
-        replyRepository.save(requestReply);
+    public void registerReply(ReplySaveRequestDto replySaveRequestDto){
+        replyRepository.commentSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
     }
 }

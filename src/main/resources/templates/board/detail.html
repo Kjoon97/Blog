@@ -1,6 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="/layout/header.html :: header"></head>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 <body>
 <div th:replace="/layout/navi.html :: navi"></div>
 <br><br>
@@ -40,7 +43,8 @@
     <!--댓글-->
     <div class="card">
         <form>
-            <input type="hidden" th:id="boardId" th:value="${board.id}">
+            <input type="hidden" th:id="userId" th:value="${principal.user.id}"/>
+            <input type="hidden" th:id="boardId" th:value="${board.id}"/>
             <div class="card-body"><textarea id="reply-content" class="form-control" rows="1"></textarea></div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
