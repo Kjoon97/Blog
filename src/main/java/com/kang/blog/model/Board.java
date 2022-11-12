@@ -39,6 +39,7 @@ public class Board {
 
     @OneToMany(mappedBy = "board")
     @JsonIgnoreProperties({"board"})  //board select할 때 reply의 board는 조회하지 않음.- > 무한 참조 방지.
+    @OrderBy("id desc")               //id 내림차순 정렬 조회.
     private List<Reply> replies;
 
     public void setterCountAndUser(int count, User user){
