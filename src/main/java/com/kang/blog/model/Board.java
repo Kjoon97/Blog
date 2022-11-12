@@ -1,5 +1,7 @@
 package com.kang.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,6 +38,7 @@ public class Board {
     private User user;     //한명의 유저는 다수의 게시글 쓴다.
 
     @OneToMany(mappedBy = "board")
+    @JsonIgnoreProperties({"board"})  //board select할 때 reply의 board는 조회하지 않음.- > 무한 참조 방지.
     private List<Reply> replies;
 
     public void setterCountAndUser(int count, User user){
