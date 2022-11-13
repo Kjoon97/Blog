@@ -57,11 +57,15 @@
         <ul th:each="reply : ${board.replies}" th:id="reply--box" class="list-group">
             <li th:id="|reply--${reply.id}|" class="list-group-item d-flex justify-content-between">
                 <div th:text="${reply.content}">댓글 내용입니다!!</div>
+                <div th:if="${reply.user.id == principal.user.id}" class="d-flex ">
                 <div class="d-flex">
                     <div th:text="|작성자 : ${reply.user.username} &nbsp|" class="font-italic">작성자 : kang &nbsp;</div>
-                    <button class="badge">삭제
-                    </button>
+                    <button th:onclick="|javascript:index.replyDelete(${board.id}, ${reply.id})|" class="badge">삭제</button>
                 </div>
+                </div>
+                <di th:unless="${reply.user.id == principal.user.id}" class="d-flex ">
+                    <div th:text="|작성자 : ${reply.user.username} &nbsp|" class="font-italic">작성자 : kang &nbsp;</div>
+                </di>
             </li>
         </ul>
     </div>

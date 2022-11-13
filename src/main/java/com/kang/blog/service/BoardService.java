@@ -69,4 +69,10 @@ public class BoardService {
     public void registerReply(ReplySaveRequestDto replySaveRequestDto){
         replyRepository.commentSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
     }
+
+    //댓글 삭제하기
+    @Transactional
+    public void deleteReply(int replyId){
+        replyRepository.deleteById(replyId);
+    }
 }
