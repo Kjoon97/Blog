@@ -37,7 +37,7 @@ public class Board {
     @JoinColumn(name="userId")
     private User user;     //한명의 유저는 다수의 게시글 쓴다.
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)    //CascadeType.REMOVE - board 게시물 삭제 시, 댓글도 모두 삭제
     @JsonIgnoreProperties({"board"})  //board select할 때 reply의 board는 조회하지 않음.- > 무한 참조 방지.
     @OrderBy("id desc")               //id 내림차순 정렬 조회.
     private List<Reply> replies;
