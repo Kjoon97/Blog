@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -24,9 +25,10 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/")
-    public String index(Model model, @PageableDefault(page = 0, size=3) Pageable pageable){
+    public String index(Model model, @PageableDefault(page = 0, size=3) Pageable pageable,
+                        @RequestParam(required = false,defaultValue = "") String search){
         //List<Board> boards = boardService.boardList();
-        Page<Board> boardPage = boardService.findBoardPage(pageable);
+        Page<Board> boardPage = boardService.findBoardPage(pageable, search);   //페이징 객체와 검색어를 넘김.
         List<Board> boards = boardPage.getContent();
         int nowPage = boardPage.getPageable().getPageNumber();
         int startPage = Math.max(nowPage - 4, 1);

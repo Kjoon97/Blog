@@ -78,9 +78,9 @@ public class BoardService {
         replyRepository.deleteById(replyId);
     }
 
-    //게시물 페이징
-    public Page<Board> findBoardPage(Pageable pageable) {
-        Page<Board> boardPage = boardRepository.searchPage(pageable);
+    //게시물 페이징, 검색
+    public Page<Board> findBoardPage(Pageable pageable, String searchText) {
+        Page<Board> boardPage = boardRepository.searchPage(pageable, searchText);
         return boardPage;
     }
 }

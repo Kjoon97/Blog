@@ -2,6 +2,7 @@ package com.kang.blog.repository;
 
 import com.kang.blog.model.Board;
 import com.kang.blog.model.QBoard;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
@@ -22,12 +23,13 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     }
 
     @Override
-    public Page<Board> searchPage(Pageable pageable) {
+    public Page<Board> searchPage(Pageable pageable, String searchText) {
 
-        //게시물 리스트, 페이징
+        //게시물 조회, 페이징, 검색
         List<Board> content = queryFactory
                 .select(board)
                 .from(board)
+                .where(searchContain(searchText))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -35,8 +37,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         //countquery 최적화
         JPAQuery<Board> countQuery = queryFactory
                 .select(board)
-                .from(board);
+                .from(board)
+                .where(searchContain(searchText));
 
         return PageableExecutionUtils.getPage(content, pageable, ()-> countQuery.fetch().size());
+    }
+
+    //검색어가 존재하면 contains 작동, 없으면 null 반환.
+    private BooleanExpression searchContain(String searchText) {
+        return searchText != null ? board.title.contains(searchText) :null;
     }
 }
