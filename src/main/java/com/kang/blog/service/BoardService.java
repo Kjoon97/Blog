@@ -10,6 +10,8 @@ import com.kang.blog.repository.BoardRepository;
 import com.kang.blog.repository.ReplyRepository;
 import com.kang.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,5 +76,11 @@ public class BoardService {
     @Transactional
     public void deleteReply(int replyId){
         replyRepository.deleteById(replyId);
+    }
+
+    //게시물 페이징
+    public Page<Board> findBoardPage(Pageable pageable) {
+        Page<Board> boardPage = boardRepository.searchPage(pageable);
+        return boardPage;
     }
 }

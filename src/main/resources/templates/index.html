@@ -2,7 +2,7 @@
 
 <head th:replace="/layout/header.html :: header"></head>
 <body>
-<div th:replace="/layout/navi.html :: navi"></div>
+<div th:replace="/layout/homeNavi.html :: home-navi"></div>
 <br><br>
 <div class="container">
   <div class="card m-2" th:each ="board : ${boards}">
@@ -17,6 +17,20 @@
       </div>
     </div>
   </div>
+
+  <!--페이지 바-->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" th:classappend="${1 == nowPage+1} ? 'disabled'">
+        <a class="page-link" href="#" th:href="@{/(page= ${nowPage-1}, search=${param.search})}" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item" th:classappend="${page == nowPage+1} ? 'disabled'" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <a class="page-link" href="#" th:href="@{/(page= ${page-1}, search=${param.search})}" th:text="${page}">1</a></li>
+      <li class="page-item" th:classappend="${endPage == nowPage+1} ? 'disabled'">
+        <a class="page-link" href="#" th:href="@{/(page= ${nowPage+1}, search=${param.search})}">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>
 
 <footer th:replace="/layout/footer.html :: footer"></footer>
