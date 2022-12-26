@@ -43,12 +43,13 @@ public class BoardService {
     @Transactional
     public Board readDetail(int id){
         //게시물 찾기.
-        Board board = boardRepository.findById(id)
+        Board board = boardRepository.findByIdForUpdate(id)
                 .orElseThrow(() -> {
                     return new IllegalArgumentException("글 상세보기 실패: 해당 게시물을 찾을 수 없습니다.");
                 });
         //조회 수 증가
-        board.updateViewCount(board.getViewCount());
+        board.updateViewCount();
+//        boardRepository.updateViewCount(id);
         System.out.println("게시물 조회수 = " + board.getViewCount());
         return board;
     }
@@ -87,5 +88,11 @@ public class BoardService {
     public Page<Board> findBoardPage(Pageable pageable, String searchText) {
         Page<Board> boardPage = boardRepository.searchPage(pageable, searchText);
         return boardPage;
+    }
+
+    //게시글 조회
+    public Board findBoard(int id){
+        Board board = boardRepository.findById(id).get();
+        return board;
     }
 }

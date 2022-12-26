@@ -66,4 +66,21 @@ public class BoardController {
         model.addAttribute("board",board);
         return "board/updateForm";
     }
+
+    //(테스트) 조회 수 증가
+    @GetMapping("/test/viewCount/{id}")
+    @ResponseBody
+    public BoardDTO testViewCount(@PathVariable int id){
+        Board board = boardService.readDetail(id);
+        BoardDTO boardDTO = new BoardDTO(board.getTitle(),board.getCreateDate(),board.getViewCount());
+        return boardDTO;
+    }
+    //(테스트) 게시글 1건 조회
+    @GetMapping("/test/board/{id}")
+    @ResponseBody
+    public BoardDTO testFindBoard(@PathVariable int id){
+        Board board = boardService.findBoard(id);
+        BoardDTO boardDTO = new BoardDTO(board.getTitle(),board.getCreateDate(),board.getViewCount());
+        return boardDTO;
+    }
 }
