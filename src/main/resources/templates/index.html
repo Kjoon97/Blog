@@ -15,6 +15,9 @@
       <a th:href="@{/board/{id}(id=${board.id})}" class="btn btn-secondary" style="float: right">상세 보기</a>
       </div>
       </div>
+      <hr>
+      <div><span th:text="|조회 수: ${board.viewCount}|"></span></div>
+      <div><span th:text="|작성 일: ${board.createDate}|"></span></div>
     </div>
   </div>
 

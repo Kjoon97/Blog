@@ -29,7 +29,7 @@ public class BoardService {
     //글 작성
     @Transactional
     public void register(Board board, User user) {
-        board.setterCountAndUser(0, user);
+        board.setterUser(user);
         boardRepository.save(board);
     }
 
@@ -39,13 +39,18 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
-    //게시물 상세보기
-    @Transactional(readOnly = true)
+    //게시물 상세보기(+조회 수 증가)
+    @Transactional
     public Board readDetail(int id){
-        return boardRepository.findById(id)
-                .orElseThrow(()->{
+        //게시물 찾기.
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> {
                     return new IllegalArgumentException("글 상세보기 실패: 해당 게시물을 찾을 수 없습니다.");
                 });
+        //조회 수 증가
+        board.updateViewCount(board.getViewCount());
+        System.out.println("게시물 조회수 = " + board.getViewCount());
+        return board;
     }
 
     //게시물 삭제하기

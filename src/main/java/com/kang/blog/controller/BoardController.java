@@ -1,6 +1,7 @@
 package com.kang.blog.controller;
 
 import com.kang.blog.config.auth.PrincipalDetails;
+import com.kang.blog.dto.BoardDTO;
 import com.kang.blog.model.Board;
 import com.kang.blog.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class BoardController {
         return "board/saveForm";
     }
 
-    //상세보기
+    //상세보기(조회수 증가)
     @GetMapping("/board/{id}")
     public String findById(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principal){
         Board board = boardService.readDetail(id);

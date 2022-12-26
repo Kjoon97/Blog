@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -27,7 +28,8 @@ public class Board {
     @Lob  //대용량 데이터 처리(summernote 라이브러리 사용할 때 html태그가 섞이므로)
     private String content;
 
-    private int count;   //조회 수
+    @ColumnDefault("0")
+    private int viewCount;   //조회 수
 
     @CreationTimestamp
     private Timestamp createDate;
@@ -42,13 +44,17 @@ public class Board {
     @OrderBy("id desc")               //id 내림차순 정렬 조회.
     private List<Reply> replies;
 
-    public void setterCountAndUser(int count, User user){
-        this.count = count;
+    public void setterUser(User user){
         this.user = user;
     }
 
     public void updateBoard(String title, String content){
         this.title =title;
         this.content =content;
+    }
+
+    public Board updateViewCount(int viewCount){
+        this.viewCount = viewCount+1;
+        return this;
     }
 }
