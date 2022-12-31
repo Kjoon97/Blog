@@ -41,7 +41,7 @@ public class BoardService {
 
     //게시물 상세보기(+조회 수 증가)
     @Transactional
-    public Board readDetail(int id){
+    public Board readDetail(Long id){
         //게시물 찾기.
         Board board = boardRepository.findByIdForUpdate(id)
                 .orElseThrow(() -> {
@@ -56,13 +56,13 @@ public class BoardService {
 
     //게시물 삭제하기
     @Transactional
-    public void delete(int id){
+    public void delete(Long id){
         boardRepository.deleteById(id);
     }
 
     //게시물 수정하기
     @Transactional
-    public void updateBoard(int id, Board requestBoard){
+    public void updateBoard(Long id, Board requestBoard){
         Board findBoard = boardRepository.findById(id)
                 .orElseThrow(()->{
                     return new IllegalArgumentException("게시글 수정 실패: 해당 게시물을 찾을 수 없습니다.");
@@ -80,7 +80,7 @@ public class BoardService {
 
     //댓글 삭제하기
     @Transactional
-    public void deleteReply(int replyId){
+    public void deleteReply(Long replyId){
         replyRepository.deleteById(replyId);
     }
 
@@ -91,7 +91,7 @@ public class BoardService {
     }
 
     //게시글 조회
-    public Board findBoard(int id){
+    public Board findBoard(Long id){
         Board board = boardRepository.findById(id).get();
         return board;
     }

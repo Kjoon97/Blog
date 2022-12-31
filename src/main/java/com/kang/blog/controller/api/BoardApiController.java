@@ -28,14 +28,14 @@ public class BoardApiController {
 
     //글 삭제
     @DeleteMapping("/api/board/{id}")
-    public ResponseDto<Integer> deleteById(@PathVariable int id){
+    public ResponseDto<Integer> deleteById(@PathVariable Long id){
         boardService.delete(id);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
     //글 수정하기
     @PutMapping("/api/board/{id}")
-    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody Board board){
+    public ResponseDto<Integer> update(@PathVariable Long id, @RequestBody Board board){
         boardService.updateBoard(id, board);
         return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
@@ -49,7 +49,7 @@ public class BoardApiController {
 
     //댓글 삭제
     @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
-    public ResponseDto<Integer> replyDelete(@PathVariable int replyId){
+    public ResponseDto<Integer> replyDelete(@PathVariable Long replyId){
         boardService.deleteReply(replyId);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }

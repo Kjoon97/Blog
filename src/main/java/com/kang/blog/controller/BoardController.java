@@ -52,7 +52,7 @@ public class BoardController {
 
     //상세보기(조회수 증가)
     @GetMapping("/board/{id}")
-    public String findById(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principal){
+    public String findById(@PathVariable Long id, Model model, @AuthenticationPrincipal PrincipalDetails principal){
         Board board = boardService.readDetail(id);
         model.addAttribute("principal", principal);  //로그인한 사용자 정보 넘겨주기
         model.addAttribute("board",board);
@@ -61,7 +61,7 @@ public class BoardController {
 
     //수정하기
     @GetMapping("/board/{id}/updateForm")
-    public String updateForm(@PathVariable int id, Model model){
+    public String updateForm(@PathVariable Long id, Model model){
         Board board = boardService.readDetail(id);
         model.addAttribute("board",board);
         return "board/updateForm";
@@ -70,7 +70,7 @@ public class BoardController {
     //(테스트) 조회 수 증가
     @GetMapping("/test/viewCount/{id}")
     @ResponseBody
-    public BoardDTO testViewCount(@PathVariable int id){
+    public BoardDTO testViewCount(@PathVariable Long id){
         Board board = boardService.readDetail(id);
         BoardDTO boardDTO = new BoardDTO(board.getTitle(),board.getCreateDate(),board.getViewCount());
         return boardDTO;
@@ -78,7 +78,7 @@ public class BoardController {
     //(테스트) 게시글 1건 조회
     @GetMapping("/test/board/{id}")
     @ResponseBody
-    public BoardDTO testFindBoard(@PathVariable int id){
+    public BoardDTO testFindBoard(@PathVariable Long id){
         Board board = boardService.findBoard(id);
         BoardDTO boardDTO = new BoardDTO(board.getTitle(),board.getCreateDate(),board.getViewCount());
         return boardDTO;

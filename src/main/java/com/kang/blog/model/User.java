@@ -19,7 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //Jpa의 기본 전략이 아닌 연결된 DB의 넘버링 전략 따름.(mysql이면 auto_increment, oracle이면 sequence사용)
-    private int id;
+    private Long id;
 
     @Column(nullable = false, length = 50)  //50자 제한
     private String username;
