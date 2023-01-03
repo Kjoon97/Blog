@@ -22,6 +22,11 @@
     </div>
     <hr>
     <br/><br/>
+    <div class="btnLike" style="text-align:center;">
+        <img src="/img/like_empty.png" height="35px" id="likeImg" style='cursor:pointer; display:inline-block'/>
+        <span th:utext="|추천: ${boardLikeInfo.BoardLikeNum}|" style="display:inline-block"></span>
+        <input type="hidden" id="like-check" th:value="${boardLikeInfo.check}" style="display:inline-block">
+    </div>
     <!--    글쓴이 당사자에게만 수정, 삭제 버튼 보이기.-->
     <div th:if="${board.getUser().id == principal.user.id}">
         <div class=buttonDiv style="float:right;">
@@ -39,7 +44,6 @@
     </div>
 
     <br/><br/>
-    <hr>
     <!--댓글-->
     <div class="card">
         <form>

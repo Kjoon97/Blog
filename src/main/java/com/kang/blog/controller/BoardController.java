@@ -2,7 +2,10 @@ package com.kang.blog.controller;
 
 import com.kang.blog.config.auth.PrincipalDetails;
 import com.kang.blog.dto.BoardDTO;
+import com.kang.blog.dto.BoardLikeDto;
+import com.kang.blog.dto.BoardLikeResponseDto;
 import com.kang.blog.model.Board;
+import com.kang.blog.service.BoardLikeService;
 import com.kang.blog.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,6 +28,7 @@ import static java.lang.Math.min;
 public class BoardController {
 
     private final BoardService boardService;
+    private final BoardLikeService boardLikeService;
 
     @GetMapping("/")
     public String index(Model model, @PageableDefault(page = 0, size=3) Pageable pageable,
@@ -54,8 +58,10 @@ public class BoardController {
     @GetMapping("/board/{id}")
     public String findById(@PathVariable Long id, Model model, @AuthenticationPrincipal PrincipalDetails principal){
         Board board = boardService.readDetail(id);
+        BoardLikeResponseDto boardLikeInfo = boardLikeService.getBoardLikeInfo(new BoardLikeDto(principal.getUser().getId(), id));
         model.addAttribute("principal", principal);  //로그인한 사용자 정보 넘겨주기
         model.addAttribute("board",board);
+        model.addAttribute("boardLikeInfo",boardLikeInfo);  //좋아요 정보(체크 사항, 좋아요 수)
         return "board/detail";
     }
 

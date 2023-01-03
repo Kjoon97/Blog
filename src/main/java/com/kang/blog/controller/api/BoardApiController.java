@@ -1,11 +1,13 @@
 package com.kang.blog.controller.api;
 
 import com.kang.blog.config.auth.PrincipalDetails;
+import com.kang.blog.dto.BoardLikeDto;
 import com.kang.blog.dto.ReplySaveRequestDto;
 import com.kang.blog.dto.ResponseDto;
 import com.kang.blog.model.Board;
 import com.kang.blog.model.Reply;
 import com.kang.blog.model.User;
+import com.kang.blog.service.BoardLikeService;
 import com.kang.blog.service.BoardService;
 import com.kang.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class BoardApiController {
 
     private final BoardService boardService;
+    private final BoardLikeService boardLikeService;
 
     //글 작성
     @PostMapping("/api/board")
@@ -29,6 +32,7 @@ public class BoardApiController {
     //글 삭제
     @DeleteMapping("/api/board/{id}")
     public ResponseDto<Integer> deleteById(@PathVariable Long id){
+        boardLikeService.deleteBoardLike(id);   //관련 좋아요 삭제.
         boardService.delete(id);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
@@ -52,5 +56,12 @@ public class BoardApiController {
     public ResponseDto<Integer> replyDelete(@PathVariable Long replyId){
         boardService.deleteReply(replyId);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    //좋아요 처리
+    @PostMapping("/api/board/{boardId}/like")
+    public ResponseDto<Integer> likeBoard(@PathVariable Long boardId, @RequestBody BoardLikeDto boardLikeDto){
+        boardLikeService.pushLikeButton(boardLikeDto);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
     }
 }
