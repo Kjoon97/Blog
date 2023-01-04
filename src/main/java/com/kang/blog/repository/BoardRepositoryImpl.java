@@ -23,13 +23,13 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     }
 
     @Override
-    public Page<Board> searchPage(Pageable pageable, String searchText) {
+    public Page<Board> searchPage(Pageable pageable, String searchText, String category) {
 
-        //게시물 조회, 페이징, 검색
+        //게시물 조회, 페이징, 검색, 카테고리
         List<Board> content = queryFactory
                 .select(board)
                 .from(board)
-                .where(searchContain(searchText))
+                .where(searchContain(searchText), findByCategory(category))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -38,7 +38,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
         JPAQuery<Board> countQuery = queryFactory
                 .select(board)
                 .from(board)
-                .where(searchContain(searchText));
+                .where(searchContain(searchText), findByCategory(category));
 
         return PageableExecutionUtils.getPage(content, pageable, ()-> countQuery.fetch().size());
     }
@@ -46,5 +46,10 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom{
     //검색어가 존재하면 contains 작동, 없으면 null 반환.
     private BooleanExpression searchContain(String searchText) {
         return searchText != null ? board.title.contains(searchText) :null;
+    }
+
+    //category 존재하면 eq()작동, 없으면 null 반환.
+    private BooleanExpression findByCategory(String category) {
+        return category != null ? board.category.eq(category) :null;
     }
 }

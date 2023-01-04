@@ -68,7 +68,7 @@ public class BoardService {
                     return new IllegalArgumentException("게시글 수정 실패: 해당 게시물을 찾을 수 없습니다.");
                 });;  //조회해서 영속성 컨텍스트 1차 캐시에 영속화 됨.
 
-        findBoard.updateBoard(requestBoard.getTitle(),requestBoard.getContent()); //영속화 객체 변경.
+        findBoard.updateBoard(requestBoard.getTitle(),requestBoard.getContent(), requestBoard.getCategory()); //영속화 객체 변경.
         //해당 함수 종료 -> 트랜잭션 종료(커밋) -> 더티체킹 -> 자동 업데이트
     }
 
@@ -84,9 +84,9 @@ public class BoardService {
         replyRepository.deleteById(replyId);
     }
 
-    //게시물 페이징, 검색
-    public Page<Board> findBoardPage(Pageable pageable, String searchText) {
-        Page<Board> boardPage = boardRepository.searchPage(pageable, searchText);
+    //게시물 페이징, 검색, 카테고리
+    public Page<Board> findBoardPage(Pageable pageable, String searchText, String category) {
+        Page<Board> boardPage = boardRepository.searchPage(pageable, searchText, category);
         return boardPage;
     }
 
@@ -95,4 +95,5 @@ public class BoardService {
         Board board = boardRepository.findById(id).get();
         return board;
     }
+
 }

@@ -7,7 +7,15 @@
 <div class="container">
     <form>
         <div class="form-group">
-            <label for="title">title</label>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select class="form-control" id="category">
+                    <option th:value="daily">일상</option>
+                    <option th:value="study">공부</option>
+                    <option th:value="travel">여행</option>
+                </select>
+            </div>
+            <label for="title">Title</label>
             <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
         </div>
         <div class="form-group">

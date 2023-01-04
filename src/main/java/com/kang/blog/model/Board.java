@@ -34,6 +34,8 @@ public class Board {
     @CreationTimestamp
     private Timestamp createDate;
 
+    private String category; // 카테고리
+
     //외래 키
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userId")
@@ -48,9 +50,10 @@ public class Board {
         this.user = user;
     }
 
-    public void updateBoard(String title, String content){
+    public void updateBoard(String title, String content, String category){
         this.title =title;
         this.content =content;
+        this.category=category;
     }
 
     public void updateViewCount(){

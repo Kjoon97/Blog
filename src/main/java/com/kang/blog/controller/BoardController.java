@@ -30,11 +30,13 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardLikeService boardLikeService;
 
-    @GetMapping("/")
+    //홈 - 게시물들 조회(페이징, 카테고리, 검색)
+    @GetMapping(value = {"/{category}", "/"})
     public String index(Model model, @PageableDefault(page = 0, size=3) Pageable pageable,
-                        @RequestParam(required = false,defaultValue = "") String search){
+                        @RequestParam(required = false,defaultValue = "") String search, @PathVariable(required = false) String category){
+        System.out.println("category = " + category);
         //List<Board> boards = boardService.boardList();
-        Page<Board> boardPage = boardService.findBoardPage(pageable, search);   //페이징 객체와 검색어를 넘김.
+        Page<Board> boardPage = boardService.findBoardPage(pageable, search, category);   //페이징 객체와 검색어를 넘김.
         List<Board> boards = boardPage.getContent();
         int nowPage = boardPage.getPageable().getPageNumber();
         int startPage = Math.max(nowPage - 4, 1);

@@ -21,7 +21,8 @@ let index ={
          //alert('user의 save 함수 호출')
          let data = {
                title: $("#title").val(),
-               content: $("#content").val()
+               content: $("#content").val(),
+               category: $("#category").val()
          };
          //console.log(data)
 
@@ -59,7 +60,8 @@ let index ={
               let id = $("#id").val();
               let data = {
                     title: $("#title").val(),
-                    content: $("#content").val()
+                    content: $("#content").val(),
+                    category:$("#category").val(),
               };
               //console.log(data)
 
