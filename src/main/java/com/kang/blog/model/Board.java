@@ -63,6 +63,10 @@ public class Board {
         viewCount++;
     }
 
+    public void subViewCount(){
+        viewCount--;
+    }
+
     public void recordLikeCount(long likeCount){
         this.likeCount = likeCount;
     }
