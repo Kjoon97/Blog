@@ -36,6 +36,9 @@ public class Board {
 
     private String category; // 카테고리
 
+    @ColumnDefault("0")
+    private long likeCount; // 좋아요 수를 별도로 기록하는 컬럼.
+
     //외래 키
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="userId")
@@ -58,5 +61,9 @@ public class Board {
 
     public void updateViewCount(){
         viewCount++;
+    }
+
+    public void recordLikeCount(long likeCount){
+        this.likeCount = likeCount;
     }
 }
