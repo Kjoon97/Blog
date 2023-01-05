@@ -1,6 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="/layout/header.html :: header"></head>
+<head>
+  <di th:replace="/layout/header.html :: header"></di>
+  <link rel ="stylesheet" th:href="@{/css/index.css}">
+</head>
 <body>
 <div th:replace="/layout/homeNavi.html :: home-navi"></div>
 <br><br>
@@ -12,16 +15,26 @@
       <h4 class="card-title" th:text="${board.title}">제목</h4>
       </div>
       <div class="col">
-      <a th:href="@{/board/{id}(id=${board.id})}" class="btn btn-secondary" style="float: right">상세 보기</a>
+      <a th:href="@{/board/{id}(id=${board.id})}" class="btn btn-outline-secondary" style="float: right">상세 보기</a>
       </div>
       </div>
       <hr>
-      <div><span th:text="|조회 수: ${board.viewCount}|"></span></div>
-      <div><span th:text="|작성 일: ${board.createDate}|"></span></div>
-      <div><span th:text="|추천 수: ${board.likeCount}|"></span></div>
-      <div><span th:text="|작성 자: ${board.user.username}|"></span></div>
-      <div><span th:text="|카테고리: ${board.category}|"></span></div>
-
+      <div>
+      <div class="left-box">
+        <span th:text="|조회 수: ${board.viewCount}|"></span>&ensp;
+        <span th:text="|추천 수: ${board.likeCount}|"></span>&ensp;
+<!--        <span th:text="|작성 자: ${board.user.username}|"></span></div>-->
+      <span th:switch="${board.category}">
+        <span th:case="daily">카테고리: 일상</span>
+        <span th:case="study">카테고리: 공부</span>
+        <span th:case="travel">카테고리: 여행</span>
+        <span th:case="*">카테고리: 기타</span>
+      </span>&ensp;
+      </div>
+        <div class="right-box">
+          <span th:text="|${board.createDate}|"></span>
+        </div>
+      </div>
     </div>
   </div>
 

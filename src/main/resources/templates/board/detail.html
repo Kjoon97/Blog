@@ -9,8 +9,14 @@
 <br><br>
 <div class="container">
     <h3 th:text ="${board.id}" id ="id" style="display:none">글 번호</h3>
-    <div>
-        작성자: <span><i th:text="${board.user.username}"></i></span>
+    <div style="text-align: right;">
+        작성자: <span><i th:text="${board.user.username}"></i></span>&ensp;
+        <span th:switch="${board.category}">
+        <span th:case="daily">카테고리: 일상</span>
+        <span th:case="study">카테고리: 공부</span>
+        <span th:case="travel">카테고리: 여행</span>
+        <span th:case="*">카테고리: 기타</span>
+      </span>
     </div>
     <br/>
     <div>
@@ -27,10 +33,11 @@
         <span th:utext="|추천: ${boardLikeInfo.BoardLikeNum}|" style="display:inline-block"></span>
         <input type="hidden" id="like-check" th:value="${boardLikeInfo.check}" style="display:inline-block">
     </div>
+    <div>
     <!--    글쓴이 당사자에게만 수정, 삭제 버튼 보이기.-->
     <div th:if="${board.getUser().id == principal.user.id}">
         <div class=buttonDiv style="float:right;">
-            <a th:href="@{/board/{id}/updateForm(id=${board.id})}" class="btn btn-primary">수정</a>
+            <a th:href="@{/board/{id}/updateForm(id=${board.id})}" class="btn btn-warning">수정</a>
             <button class="btn btn-danger" id="btn-delete">삭제</button>
             <button class="btn btn-secondary" onclick="history.back()">뒤로가기</button>
         </div>
@@ -39,19 +46,20 @@
     <!--    글쓴이 아니면 수정, 삭제 버튼 안보이게 하기.-->
     <div th:unless="${board.getUser().id == principal.user.id}">
         <div class=buttonDiv style="float:right;">
-            <button class="btn btn-secondary" onclick="history.back()">뒤로가기</button>
+            <button class="btn btn-outline-secondary" onclick="history.back()">뒤로가기</button>
         </div>
     </div>
 
+    </div>
     <br/><br/>
     <!--댓글-->
-    <div class="card">
-        <form>
+    <div class="card" style="margin-top: 30px;">
+        <form style="margin-block-end: 0em;">
             <input type="hidden" th:id="userId" th:value="${principal.user.id}"/>
             <input type="hidden" th:id="boardId" th:value="${board.id}"/>
-            <div class="card-body"><textarea id="reply-content" class="form-control" rows="1"></textarea></div>
-            <div class="card-footer d-flex justify-content-end">
-                <button type="button" id="btn-reply-save" class="btn btn-primary">등록</button>
+            <div class="card-body" style="text-align: right; padding: 0.5rem;">
+                <textarea id="reply-content" class="form-control" rows="1" style="margin-bottom: 5px;"></textarea>
+                <button type="button" id="btn-reply-save" class="btn btn-info">등록</button>
             </div>
         </form>
     </div>
