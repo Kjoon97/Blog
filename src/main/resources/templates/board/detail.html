@@ -1,6 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="/layout/header.html :: header"></head>
+<head>
+    <div th:replace="/layout/header.html :: header"></div>
+    <link rel ="stylesheet" th:href="@{/css/font.css}">
+</head>
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
