@@ -6,10 +6,14 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Getter
 @NoArgsConstructor
@@ -31,8 +35,8 @@ public class Board {
     @ColumnDefault("0")
     private int viewCount;   //조회 수
 
-    @CreationTimestamp
-    private Timestamp createDate;
+    @CreatedDate
+    private String createDate;
 
     private String category; // 카테고리
 
@@ -69,5 +73,10 @@ public class Board {
 
     public void recordLikeCount(long likeCount){
         this.likeCount = likeCount;
+    }
+
+    @PrePersist   //DB에 해당 테이블을 insert 연산 수행하기 전에 수행
+    public void onPrePersist() {
+        this.createDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd a KK : mm",  Locale.KOREAN));
     }
 }

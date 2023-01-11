@@ -20,6 +20,7 @@
         <span th:case="travel">카테고리: 여행</span>
         <span th:case="*">카테고리: 기타</span>
       </span>
+        <div th:text="|작성일: ${board.createDate}|"></th:text></div>
     </div>
     <br/>
     <div>

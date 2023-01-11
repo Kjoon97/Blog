@@ -3,8 +3,10 @@ package com.kang.blog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+@EnableJpaAuditing  // 생성/수정 날짜,시간 자동화
 @SpringBootApplication
 public class BlogApplication {
 

@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 public class BoardDTO {
 
     private String title;
-    private Timestamp createDate;
+    private String createDate;
     private int countView;
 
-    public BoardDTO(String title, Timestamp createDate, int countView) {
+    public BoardDTO(String title, String createDate, int countView) {
         this.title = title;
         this.createDate = createDate;
         this.countView = countView;
