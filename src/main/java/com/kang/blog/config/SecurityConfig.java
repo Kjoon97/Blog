@@ -42,6 +42,7 @@ public class SecurityConfig{
                 .loginPage("/auth/loginForm")              // 로그인 페이지 주소 설정.
                 .loginProcessingUrl("/auth/login")        //스프링 시큐리티가 해당 주소로 요청오는 로그인 가로채고 대신 로그인.
                 .defaultSuccessUrl("/")                  //로그인 성공 시 이동 경로.
+                .failureUrl("/auth/login/error")         //로그인 실패시 이동 경로
                 .and()
                 .oauth2Login()
                 .loginPage("/auth/loginForm")

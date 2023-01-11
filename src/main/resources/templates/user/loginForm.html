@@ -19,6 +19,7 @@
       <label for="password">password:</label>
       <input type="password" class="form-control" placeholder="Enter password" name="password" id="password">
     </div>
+    <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}" style="color:red;"></p>
     <hr class="my-4">
     <div class="row">
       <div class="col">
