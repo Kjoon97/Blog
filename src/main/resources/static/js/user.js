@@ -44,6 +44,10 @@ let index ={
                 }
                 else $('#valid_email').text('');
             }
+            else if (resp.statusCode==500 && resp.data=="유저네임중복오류"){
+                $('#valid_username').text("이미 사용중인 유저 네임입니다.");
+                $('#valid_username').css('color', 'red');
+            }
             else{
             //alert(resp);   //컨트롤러 리턴 값 resp에 저장됨.
                 alert("회원 가입이 완료 되었습니다.");

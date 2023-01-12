@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {  //<user엔티티, pk타입>
 
     User findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }

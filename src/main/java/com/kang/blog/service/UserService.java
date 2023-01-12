@@ -1,11 +1,13 @@
 package com.kang.blog.service;
 
 import com.kang.blog.dto.JoinFormDto;
+import com.kang.blog.dto.ResponseDto;
 import com.kang.blog.dto.UpdateFormDto;
 import com.kang.blog.model.RoleType;
 import com.kang.blog.model.User;
 import com.kang.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,12 @@ public class UserService {
         User user = joinFormDto.toEntity();                     //DTO -> 엔티티
         user.setRoleAndEncPassword(RoleType.USER, encPassword);
         userRepository.save(user);
+    }
+
+    //중복 회원 확인
+    @Transactional(readOnly = true)
+    public boolean checkDuplicate(JoinFormDto joinFormDto){
+        return userRepository.existsByUsername(joinFormDto.getUsername());
     }
 
     //회원 수정

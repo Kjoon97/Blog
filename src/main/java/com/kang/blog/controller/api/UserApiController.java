@@ -31,6 +31,11 @@ public class UserApiController {
     public ResponseDto<?> save(@Valid @RequestBody JoinFormDto joinFormDto, BindingResult result){
         //조건에 따라 리턴 데이터 타입이 달라지므로 ResponseDto<>에 ?으로 지정해주면 된다.
 
+        //중복 username 확인.
+        if (userService.checkDuplicate(joinFormDto)){
+            return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(),"유저네임중복오류");
+        }
+
         userService.register(joinFormDto);
         return new ResponseDto<String>(HttpStatus.OK.value(), "ok");
     }
