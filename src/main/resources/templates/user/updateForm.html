@@ -20,10 +20,16 @@
             <label for="email">email:</label>
             <input type="text" th:value="${principal.user.email}" class="form-control" id="email">
         </div>
+        <!--  email 검증 메세지    -->
+        <p id="valid_email"></p>
+
         <div class="form-group">
             <label for="password">password:</label>
             <input type="password" class="form-control" id="password">
         </div>
+        <!--  password 검증 메세지    -->
+        <p id="valid_password"></p>
+
         <br/>
         <hr class="my-4">
     </form>

@@ -1,5 +1,7 @@
 package com.kang.blog.service;
 
+import com.kang.blog.dto.JoinFormDto;
+import com.kang.blog.dto.UpdateFormDto;
 import com.kang.blog.model.RoleType;
 import com.kang.blog.model.User;
 import com.kang.blog.repository.UserRepository;
@@ -19,16 +21,17 @@ public class UserService {
 
     //회원가입.
     @Transactional
-    public void register(User user) {
-        String rawPassword = user.getPassword();
+    public void register(JoinFormDto joinFormDto) {
+        String rawPassword = joinFormDto.getPassword();
         String encPassword = encoder.encode(rawPassword);       //비밀번호 해쉬 인코딩.
+        User user = joinFormDto.toEntity();                     //DTO -> 엔티티
         user.setRoleAndEncPassword(RoleType.USER, encPassword);
         userRepository.save(user);
     }
 
     //회원 수정
     @Transactional
-    public void userUpdate(User user){
+    public User userUpdate(User user){
         System.out.println("user = " + user.getId());
         //영속성 컨텍스트 user 오브젝트를 영속화 시키고 영속화된 user 객체 수정-> 함수 종료 ->트랜잭션 끝(커밋) 후 자동으로 더티체킹.
         User persistenceUser = userRepository.findById(user.getId()).orElseThrow(()-> {
@@ -37,5 +40,7 @@ public class UserService {
         String rawPwd = user.getPassword();
         String encodePwd = encoder.encode(rawPwd);
         persistenceUser.setPwdAndEmail(encodePwd,user.getEmail());
+
+        return persistenceUser;
     }
 }
