@@ -1,5 +1,6 @@
 package com.kang.blog.config;
 
+import com.kang.blog.config.auth.PrincipalDetailService;
 import com.kang.blog.config.oauth.PrincipalOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig{
 
     private final PrincipalOauth2UserService principalOauth2UserService;
+    private final PrincipalDetailService principalDetailService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -32,6 +34,12 @@ public class SecurityConfig{
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()                           //csrf 토큰 비활성화.
+                .rememberMe()
+                .rememberMeParameter("remember")    //checkbox - name 속성
+                .tokenValiditySeconds(3600)        //쿠키 만료시간(초)
+                .alwaysRemember(false)             //체크박스 활성화 하지 않아도 항상 실행
+                .userDetailsService(principalDetailService)  //사용자 정보.
+                .and()
                 .authorizeHttpRequests()                    // 요청이 들어올 때,
                 .antMatchers("/auth/**","/","/js/**","/css/**","/img/**","/test/**")        // auth/이하 모든 경로는
                 .permitAll()                                // 미인증, 인증자 모두 접속 허용
