@@ -28,6 +28,7 @@ repositories {
 dependencies {
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"  //querydsl 추가
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'

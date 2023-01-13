@@ -21,9 +21,16 @@
     </div>
     <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}" style="color:red;"></p>
     <hr class="my-4">
-    <div class="form-group form-check" align="left" style="margin-bottom: 50px;">
-      <label class="form-check-label"> <input class="form-check-input" name="remember" type="checkbox">로그인 상태 유지</label>
+
+    <div class="row">
+      <div class="col"><a href="/auth/findPwdForm">비밀 번호 찾기</a></div>
+      <div class="col">
+        <div class="form-group form-check" align="left" style="margin-bottom: 50px;">
+        <label class="form-check-label"> <input class="form-check-input" name="remember" type="checkbox">로그인 상태 유지</label>
+      </div>
+      </div>
     </div>
+
     <br>
     <div class="row">
       <div class="col">

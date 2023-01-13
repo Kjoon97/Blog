@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="/layout/header.html :: header"></div>
+    <link rel ="stylesheet" th:href="@{/css/joinLoginForm.css}">
+    <link rel ="stylesheet" th:href="@{/css/font.css}">
+</head>
+
+<body>
+<div th:replace="/layout/navi.html :: navi"></div>
+<br/><br/>
+<div class="container">
+    <form>
+        <div>입력한 이메일 주소로 비밀번호 재설정 링크를 보내드립니다.</div><br>
+        <div class="form-group">
+            <label for="username">username:</label>
+            <input type="text" class="form-control" placeholder="Enter username" id="username">
+        </div>
+        <!--  username 검증 메세지    -->
+        <p id="valid_username"></p>
+
+        <div class="form-group">
+            <label for="email">email:</label>
+            <input type="email" class="form-control" placeholder="Enter email" id="email">
+        </div>
+        <!--  email 검증 메세지    -->
+        <p id="valid_email"></p>
+        <hr class="my-4">
+    </form>
+    <div class="row">
+        <div class="col">
+            <button id="btn-find" class="w-100 btn btn-primary btn-lg">확인</button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='items.html'" th:onclick="|location.href='@{/auth/loginForm}'|" type="button">취소</button>
+        </div>
+    </div>
+</div>
+<script src="/js/user.js"></script>
+<footer th:replace="/layout/footer.html :: footer"></footer>
+</body>
+</html>
+

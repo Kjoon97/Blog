@@ -31,4 +31,9 @@ public class UserController {
         model.addAttribute("principal",principal);
         return "user/updateForm";
     }
+
+    @GetMapping("/auth/findPwdForm")
+    public String findForm(){
+        return "user/findForm";
+    }
 }

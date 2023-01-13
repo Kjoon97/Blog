@@ -50,4 +50,9 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+    //임시 비밀번호 발급시 사용
+    public void changePwd(String password){
+        this.password = password;
+    }
 }

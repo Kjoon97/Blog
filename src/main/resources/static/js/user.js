@@ -6,6 +6,9 @@ let index ={
          $("#btn-update").on("click",()=>{   //'회원수정' 버튼 클릭하면 해당 함수 호출 됨.
               this.update();
          });
+         $("#btn-find").on("click",()=>{   //비밀 번호 찾기 페이지 '확인' 버튼
+              this.find();
+         });
      },
 
      save: function(){
@@ -97,6 +100,46 @@ let index ={
          }).fail(function(error){
             alert(JSON.stringify(error));
          });    //ajax 통신으로 3개의 데이터 json으로 변환 후 insert 요청.
+     },
+
+     find: function() {
+
+         let data = {
+             username: $("#username").val(),
+             email: $("#email").val()
+         };
+
+         $.ajax({
+             type: "POST",
+             url: "/auth/find",
+             data: JSON.stringify(data),
+             contentType: "application/json; charset=utf-8"
+         }).done(function(resp) {
+             if (resp.statusCode == 400) {
+                 if (resp.data.hasOwnProperty('valid_email')) {
+                     $('#valid_email').text(resp.data.valid_email);
+                     $('#valid_email').css('color', 'red');
+                 } else {
+                     $('#valid_email').text('');
+                 }
+                 if (resp.data.hasOwnProperty('valid_username')) {
+                     $('#valid_username').text(resp.data.valid_username);
+                     $('#valid_username').css('color', 'red');
+                 } else {
+                     $('#valid_username').text('');
+                 }
+             }
+             else if (resp.statusCode==500 && resp.data=="존재안함"){
+                $('#valid_username').text("존재하지 않는 사용자입니다.");
+                $('#valid_username').css('color', 'red');
+             }
+             else {
+                 alert("임시 비밀번호가 발송되었습니다.");
+                 location.href = "/auth/loginForm";
+             }
+         }).fail(function(error) {
+             console.log(error);
+         });
      }
 }
 
