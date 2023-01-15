@@ -2,6 +2,7 @@ package com.kang.blog.dto;
 
 import com.kang.blog.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UpdateFormDto {
 
     private Long id;

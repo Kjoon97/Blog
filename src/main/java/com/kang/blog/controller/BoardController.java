@@ -1,7 +1,6 @@
 package com.kang.blog.controller;
 
 import com.kang.blog.config.auth.PrincipalDetails;
-import com.kang.blog.dto.BoardDTO;
 import com.kang.blog.dto.BoardLikeDto;
 import com.kang.blog.dto.BoardLikeResponseDto;
 import com.kang.blog.model.Board;
@@ -17,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -73,22 +71,5 @@ public class BoardController {
         Board board = boardService.readDetail(id);
         model.addAttribute("board",board);
         return "board/updateForm";
-    }
-
-    //(테스트) 조회 수 증가
-    @GetMapping("/test/viewCount/{id}")
-    @ResponseBody
-    public BoardDTO testViewCount(@PathVariable Long id){
-        Board board = boardService.readDetail(id);
-        BoardDTO boardDTO = new BoardDTO(board.getTitle(),board.getCreateDate(),board.getViewCount());
-        return boardDTO;
-    }
-    //(테스트) 게시글 1건 조회
-    @GetMapping("/test/board/{id}")
-    @ResponseBody
-    public BoardDTO testFindBoard(@PathVariable Long id){
-        Board board = boardService.findBoard(id);
-        BoardDTO boardDTO = new BoardDTO(board.getTitle(),board.getCreateDate(),board.getViewCount());
-        return boardDTO;
     }
 }
