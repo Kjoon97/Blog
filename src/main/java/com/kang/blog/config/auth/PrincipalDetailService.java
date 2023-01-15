@@ -1,5 +1,6 @@
 package com.kang.blog.config.auth;
 
+import com.kang.blog.dto.SessionUserDto;
 import com.kang.blog.model.User;
 import com.kang.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,8 @@ public class PrincipalDetailService implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException(username);
         }
-        return new PrincipalDetails(user);   // 시큐리티 세션에 UserDetail 타입으로 유저 정보 저장.
+        SessionUserDto sessionUserDto = new SessionUserDto(user);  //직렬 가능한 user DTO 생성.
+        return new PrincipalDetails(sessionUserDto);   // 시큐리티 세션에 UserDetail 타입으로 유저 정보 저장.
     }
 
     //password는 시큐리티가 로그인 시 비밀번호 가로채고, 회원가입할 때의 비번 해쉬값과 현재 DB 해쉬 값 비교해서 로그인 결정한다.

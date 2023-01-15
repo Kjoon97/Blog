@@ -1,12 +1,11 @@
 package com.kang.blog.config.auth;
 
-import com.kang.blog.model.User;
+import com.kang.blog.dto.SessionUserDto;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -16,16 +15,16 @@ import java.util.Map;
 @Getter
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
-    private User user;
+    private SessionUserDto user;
     private Map<String,Object> attributes;
 
     //일반 시큐리티 로그인할 때 사용하는 생성자
-    public PrincipalDetails(User user){
+    public PrincipalDetails(SessionUserDto user){
         this.user = user;
     }
 
     //OAuth 로그인할 때 사용하는 생성자
-    public PrincipalDetails(User user, Map<String, Object> attributes){
+    public PrincipalDetails(SessionUserDto user, Map<String, Object> attributes){
         this.user = user;
         this.attributes = attributes;
     }

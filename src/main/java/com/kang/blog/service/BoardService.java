@@ -25,10 +25,12 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final ReplyRepository replyRepository;
+    private final UserRepository userRepository;
 
     //글 작성
     @Transactional
-    public void register(Board board, User user) {
+    public void register(Board board, Long id) {
+        User user = userRepository.findById(id).get();
         board.setterUser(user);
         boardRepository.save(board);
     }

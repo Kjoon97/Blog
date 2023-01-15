@@ -6,6 +6,7 @@ import com.kang.blog.config.oauth.provider.FacebookUserInfo;
 import com.kang.blog.config.oauth.provider.GoogleUserInfo;
 import com.kang.blog.config.oauth.provider.NaverUserInfo;
 import com.kang.blog.config.oauth.provider.OAuth2UserInfo;
+import com.kang.blog.dto.SessionUserDto;
 import com.kang.blog.model.RoleType;
 import com.kang.blog.model.User;
 import com.kang.blog.repository.UserRepository;
@@ -68,9 +69,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         }else{
             System.out.println("로그인을 이미 한적이 있습니다. 당신은 자동 로그인됩니다.");
         }
-
+        SessionUserDto sessionUserDto = new SessionUserDto(userEntity);  //직렬 가능한 user DTO 생성.
         //회원가입 강제 진행.
-        return new PrincipalDetails(userEntity, oAuth2User.getAttributes()); //이 객체는 Autentication 객체에 들어감.
+        return new PrincipalDetails(sessionUserDto, oAuth2User.getAttributes()); //이 객체는 Autentication 객체에 들어감.
     }
     //해당 매소드 종료시 @AuthenticationPrincipal 이 생성된다.
 }

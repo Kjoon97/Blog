@@ -26,6 +26,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.session:spring-session-jdbc'
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"  //querydsl 추가
 	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
