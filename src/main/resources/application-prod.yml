@@ -27,15 +27,15 @@ spring:
       client:
         registration:
           google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
-            client-id: 800569042840-0pck39676orsi5jqoialbupbe1qo1tc5.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${application.spring.security.google.client-id}
+            client-secret: ${application.spring.security.google.client-secret}
             scope:
               - email
               - profile
 
           facebook:
-            client-id: 525471382386440
-            client-secret: 9664e14fcb571e1dc5c393879df2bf78
+            client-id: ${application.spring.security.facebook.client-id}
+            client-secret: ${application.spring.security.facebook.client-secret}
             scope:
               - email
               - public_profile
@@ -43,14 +43,14 @@ spring:
           # 네이버는 OAuth2.0 공식 지원대상이 아니라서 provider 설정이 필요하다.
           # 요청주소도 다르고, 응답 데이터도 다르기 때문이다.
           naver:
-            client-id: ain8qVoCODDuIRTIienH
-            client-secret: _KhKIsNT2M
+            client-id: ${application.spring.security.naver.client-id}
+            client-secret: ${application.spring.security.naver.client-secret}
             scope:
               - name
               - email
             client-name: Naver # 클라이언트 네임은 구글 페이스북도 대문자로 시작하더라.
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/naver
+            redirect-uri: ${application.spring.security.naver.redirect-uri}
 
         provider:
           naver:
@@ -62,8 +62,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: kjh83370@gmail.com
-    password: test
+    username: ${application.spring.mail.username}
+    password: ${application.spring.mail.password}
     properties:
       mail:
         smtp:

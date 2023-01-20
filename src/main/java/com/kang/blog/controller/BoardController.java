@@ -30,7 +30,7 @@ public class BoardController {
     private final BoardLikeService boardLikeService;
 
     //홈 - 게시물들 조회(페이징, 카테고리, 검색)
-    @GetMapping(value = {"/{category}", "/"})
+    @GetMapping(value = {"/blog/{category}", "/blog"})
     public String index(Model model, @PageableDefault(page = 0, size=3) Pageable pageable,
                         @RequestParam(required = false,defaultValue = "") String search, @PathVariable(required = false) String category){
         System.out.println("category = " + category);
@@ -72,5 +72,11 @@ public class BoardController {
         Board board = boardService.readDetail(id);
         model.addAttribute("board",board);
         return "board/updateForm";
+    }
+
+    @ResponseBody
+    @GetMapping("/")
+    public String awsCheck(){
+        return "ok";
     }
 }

@@ -3,12 +3,25 @@ on:
   push:
     branches:
       - master              #master 브랜치에 push 되면 밑에 있는 jobs를 실행해라
+
 #jobs의 목적은 jar 파일을 빌드하는 것.
 # actions/setup-java@v2는 사용자 정의 배포를 지원하고 Zulu OpenJDK, Eclipse Temurin 및 Adopt OpenJDK를 기본적으로 지원합니다. v1은 Zulu OpenJDK만 지원.
 jobs:
   build: # name이라 마음대로 적어도됨.
     runs-on: ubuntu-latest      #CI 서버를 하나 만들어서 ubuntu설치.
     steps:
+      - name: set env values
+        working-directory: ./
+        run: |
+          echo application.spring.security.naver.client-id=${{ secrets.APPLICATION_SPRING_SECURITY_NAVER_CLIENT_ID }} >> env.properties
+          echo application.spring.security.naver.client-secret=${{ secrets.APPLICATION_SPRING_SECURITY_NAVER_CLIENT_SECRET }} >> env.properties
+          echo application.spring.security.naver.redirect-uri=${{ secrets.APPLICATION_SPRING_SECURITY_NAVER_REDIRECT_URI }} >> env.properties
+          echo application.spring.security.google.client-id=${{ secrets.APPLICATION_SPRING_SECURITY_GOOGLE_CLIENT_ID }} >> env.properties
+          echo application.spring.security.google.client-secret=${{ secrets.APPLICATION_SPRING_SECURITY_GOOGLE_CLIENT_SECRET }} >> env.properties
+          echo application.spring.security.facebook.client-id=${{ secrets.APPLICATION_SPRING_SECURITY_FACEBOOK_CLIENT_ID }} >> env.properties
+          echo application.spring.security.facebook.client-secret=${{ secrets.APPLICATION_SPRING_SECURITY_FACEBOOK_CLIENT_SECRET }} >> env.properties
+          echo application.spring.mail.username=${{ secrets.APPLICATION_SPRING_MAIL_USERNAME }} >> env.properties
+          echo application.spring.mail.password=${{ secrets.APPLICATION_SPRING_MAIL_PASSWORD }} >> env.properties
       - name: Checkout                  #step1. 첫번째 action(스크립트) - 프로젝트 코드 다운
         uses: actions/checkout@v2
       - name: Set up JDK 11             #step2. 두번째 action(스크립트) - jdk 다운
