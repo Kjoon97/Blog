@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class BoardController {
     private final BoardLikeService boardLikeService;
 
     //홈 - 게시물들 조회(페이징, 카테고리, 검색)
-    @GetMapping(value = {"/{category}", "/"})
+    @GetMapping(value = {"/blog/{category}", "/blog"})
     public String index(Model model, @PageableDefault(page = 0, size=3) Pageable pageable,
                         @RequestParam(required = false,defaultValue = "") String search, @PathVariable(required = false) String category){
         System.out.println("category = " + category);
@@ -45,7 +46,7 @@ public class BoardController {
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);
         model.addAttribute("boardPage",boardPage);
-        return "index";
+        return "home/home";
     }
 
     //글 작성 페이지
@@ -71,5 +72,11 @@ public class BoardController {
         Board board = boardService.readDetail(id);
         model.addAttribute("board",board);
         return "board/updateForm";
+    }
+
+    @ResponseBody
+    @GetMapping("/")
+    public String awsCheck(){
+        return "ok";
     }
 }

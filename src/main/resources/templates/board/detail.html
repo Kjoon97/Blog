@@ -1,14 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <div th:replace="/layout/header.html :: header"></div>
+    <div th:replace="layout/header.html :: header"></div>
     <link rel ="stylesheet" th:href="@{/css/font.css}">
 </head>
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 <body>
-<div th:replace="/layout/navi.html :: navi"></div>
+<div th:replace="layout/navi.html :: navi"></div>
 <br><br>
 <div class="container">
     <h3 th:text ="${board.id}" id ="id" style="display:none">글 번호</h3>
@@ -90,6 +90,6 @@
 
 
 <script src="/js/board.js"></script>
-<footer th:replace="/layout/footer.html :: footer"></footer>
+<footer th:replace="layout/footer.html :: footer"></footer>
 </body>
 </html>

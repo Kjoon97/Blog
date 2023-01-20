@@ -1,12 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-  <di th:replace="/layout/header.html :: header"></di>
+  <di th:replace="layout/header.html :: header"></di>
   <link rel ="stylesheet" th:href="@{/css/index.css}">
   <link rel ="stylesheet" th:href="@{/css/font.css}">
 </head>
 <body>
-<div th:replace="/layout/homeNavi.html :: home-navi"></div>
+<div th:replace="layout/homeNavi.html :: home-navi"></div>
 <br><br>
 <div class="container">
   <div class="card m-2" th:each ="board : ${boards}">
@@ -54,6 +54,6 @@
   </nav>
 </div>
 
-<footer th:replace="/layout/footer.html :: footer"></footer>
+<footer th:replace="layout/footer.html :: footer"></footer>
 </body>
 </html>

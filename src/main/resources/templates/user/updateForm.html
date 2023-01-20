@@ -1,13 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <div th:replace="/layout/header.html :: header"></div>
+    <div th:replace="layout/header.html :: header"></div>
     <link rel ="stylesheet" th:href="@{/css/joinLoginForm.css}">
     <link rel ="stylesheet" th:href="@{/css/font.css}">
 </head>
 
 <body>
-<div th:replace="/layout/navi.html :: navi"></div>
+<div th:replace="layout/navi.html :: navi"></div>
 <br/><br/>
 <div class="container">
     <form>
@@ -43,7 +43,7 @@
     </div>
 </div>
 <script src="/js/user.js"></script>
-<footer th:replace="/layout/footer.html :: footer"></footer>
+<footer th:replace="layout/footer.html :: footer"></footer>
 </body>
 </html>
 

@@ -22,7 +22,7 @@ public class UserController {
     @GetMapping("/auth/login/error")
     public String loginError(Model model){
         model.addAttribute("loginErrorMsg", "username 또는 비밀번호를 확인해주세요");
-        return "/user/loginForm";
+        return "user/loginForm";
     }
 
     @GetMapping("/user/updateForm")
