@@ -7,7 +7,7 @@ on:
 # actions/setup-java@v2는 사용자 정의 배포를 지원하고 Zulu OpenJDK, Eclipse Temurin 및 Adopt OpenJDK를 기본적으로 지원합니다. v1은 Zulu OpenJDK만 지원.
 jobs:
   build: # name이라 마음대로 적어도됨.
-    runs-on: ubuntu-18.04        #CI 서버를 하나 만들어서 ubuntu설치.
+    runs-on: ubuntu-latest      #CI 서버를 하나 만들어서 ubuntu설치.
     steps:
       - name: Checkout                  #step1. 첫번째 action(스크립트) - 프로젝트 코드 다운
         uses: actions/checkout@v2
@@ -30,7 +30,6 @@ jobs:
       - name: Show Current Time                       #step6. 현재 시간 출력.
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
         shell: bash
-
       # EB에 CD 하기 위해 추가 작성
       - name: Generate deployment package      #step7. deploy폴더 생성, 필요 파일 넣고 압축 ( | : 여러 줄 명령어 작성 가능)
         run: |

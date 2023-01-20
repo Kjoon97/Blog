@@ -41,7 +41,7 @@ public class SecurityConfig{
                 .userDetailsService(principalDetailService)  //사용자 정보.
                 .and()
                 .authorizeHttpRequests()                    // 요청이 들어올 때,
-                .antMatchers("/auth/**","/","/js/**","/css/**","/img/**","/blog/**")        // auth/이하 모든 경로는
+                .antMatchers("/auth/**","/","/js/**","/css/**","/img/**")        // auth/이하 모든 경로는
                 .permitAll()                                // 미인증, 인증자 모두 접속 허용
                 .anyRequest()                               // 그외 모든 요청은
                 .authenticated()                            // 인증 필수이다.

@@ -70,7 +70,3 @@ spring:
     store-tpye: jdbc
     jdbc:
       initialize-schema: always
-
-
-  thymeleaf:
-    prefix: classpath:/templates/
