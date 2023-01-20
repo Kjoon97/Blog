@@ -4,6 +4,7 @@ on:
     branches:
       - master              #master 브랜치에 push 되면 밑에 있는 jobs를 실행해라
 
+
 #jobs의 목적은 jar 파일을 빌드하는 것.
 # actions/setup-java@v2는 사용자 정의 배포를 지원하고 Zulu OpenJDK, Eclipse Temurin 및 Adopt OpenJDK를 기본적으로 지원합니다. v1은 Zulu OpenJDK만 지원.
 jobs:
