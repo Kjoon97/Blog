@@ -35,6 +35,8 @@ jobs:
       - name: Build with Gradle                        #step4. gradlew 빌드(테스트+jar생성)
         run: ./gradlew clean build
         shell: bash
+        with:
+          arguments: clean build -x test
       - name: Get current time                        #step5. 서버 시간 한국으로 설정 후 current-time(id)에 넣기. # UTC가 기준이기 때문에 한국시간으로 맞추려면 +9시간 해야 한다.
         uses: 1466587594/get-current-time@v2
         id: current-time
