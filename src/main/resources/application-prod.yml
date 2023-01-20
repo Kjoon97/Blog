@@ -70,10 +70,12 @@ spring:
           auth: true
           starttls:
             enable: true
+
   #세션 db 생성
   session:
     store-tpye: jdbc
     jdbc:
       initialize-schema: always
+
   thymeleaf:
     prefix: classpath:/templates/
