@@ -11,18 +11,6 @@ jobs:
   build: # name이라 마음대로 적어도됨.
     runs-on: ubuntu-latest      #CI 서버를 하나 만들어서 ubuntu설치.
     steps:
-      - name: set env values
-        working-directory: ./
-        run: |
-          echo application.spring.security.naver.client-id=${{ secrets.APPLICATION_SPRING_SECURITY_NAVER_CLIENT_ID }} >> env.properties
-          echo application.spring.security.naver.client-secret=${{ secrets.APPLICATION_SPRING_SECURITY_NAVER_CLIENT_SECRET }} >> env.properties
-          echo application.spring.security.naver.redirect-uri=${{ secrets.APPLICATION_SPRING_SECURITY_NAVER_REDIRECT_URI }} >> env.properties
-          echo application.spring.security.google.client-id=${{ secrets.APPLICATION_SPRING_SECURITY_GOOGLE_CLIENT_ID }} >> env.properties
-          echo application.spring.security.google.client-secret=${{ secrets.APPLICATION_SPRING_SECURITY_GOOGLE_CLIENT_SECRET }} >> env.properties
-          echo application.spring.security.facebook.client-id=${{ secrets.APPLICATION_SPRING_SECURITY_FACEBOOK_CLIENT_ID }} >> env.properties
-          echo application.spring.security.facebook.client-secret=${{ secrets.APPLICATION_SPRING_SECURITY_FACEBOOK_CLIENT_SECRET }} >> env.properties
-          echo application.spring.mail.username=${{ secrets.APPLICATION_SPRING_MAIL_USERNAME }} >> env.properties
-          echo application.spring.mail.password=${{ secrets.APPLICATION_SPRING_MAIL_PASSWORD }} >> env.properties
       - name: Checkout                  #step1. 첫번째 action(스크립트) - 프로젝트 코드 다운
         uses: actions/checkout@v2
       - name: Set up JDK 11             #step2. 두번째 action(스크립트) - jdk 다운
@@ -35,8 +23,6 @@ jobs:
       - name: Build with Gradle                        #step4. gradlew 빌드(테스트+jar생성)
         run: ./gradlew clean build
         shell: bash
-        with:
-          arguments: clean build -x test
       - name: Get current time                        #step5. 서버 시간 한국으로 설정 후 current-time(id)에 넣기. # UTC가 기준이기 때문에 한국시간으로 맞추려면 +9시간 해야 한다.
         uses: 1466587594/get-current-time@v2
         id: current-time
@@ -47,20 +33,20 @@ jobs:
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
         shell: bash
       # EB에 CD 하기 위해 추가 작성
-      - name: Generate deployment package      #step7. deploy폴더 생성, 필요 파일 넣고 압축 ( | : 여러 줄 명령어 작성 가능)
-        run: |
-          mkdir -p deploy
-          cp build/libs/*.jar deploy/application.jar
-          cp Procfile deploy/Procfile
-          cp -r .ebextensions deploy/.ebextensions
-          cd deploy && zip -r deploy.zip .
-      - name: Deploy to EB                        #step8. 엘라스틱빈스톡에 배포
-        uses: einaregilsson/beanstalk-deploy@v20
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}     #깃허브레포에 저장한 IAM AWS 키
-          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}     #깃허브레포에 저장한 IAM AWS 키
-          application_name: aws-blog-beanstalk # 엘리스틱 빈스톡 애플리케이션 이름!
-          environment_name: Awsblogbeanstalk-env # 엘리스틱 빈스톡 환경 이름!
-          version_label: aws-blog-${{steps.current-time.outputs.formattedTime}}
-          region: ap-northeast-2  # 서울 ap-northeast-2
-          deployment_package: deploy/deploy.zip    #s3에 접근하여 deploy.zip을 넣겠다.
+#      - name: Generate deployment package      #step7. deploy폴더 생성, 필요 파일 넣고 압축 ( | : 여러 줄 명령어 작성 가능)
+#        run: |
+#          mkdir -p deploy
+#          cp build/libs/*.jar deploy/application.jar
+#          cp Procfile deploy/Procfile
+#          cp -r .ebextensions deploy/.ebextensions
+#          cd deploy && zip -r deploy.zip .
+#      - name: Deploy to EB                        #step8. 엘라스틱빈스톡에 배포
+#        uses: einaregilsson/beanstalk-deploy@v20
+#        with:
+#          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}     #깃허브레포에 저장한 IAM AWS 키
+#          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}     #깃허브레포에 저장한 IAM AWS 키
+#          application_name: aws-blog-beanstalk # 엘리스틱 빈스톡 애플리케이션 이름!
+#          environment_name: Awsblogbeanstalk-env # 엘리스틱 빈스톡 환경 이름!
+#          version_label: aws-blog-${{steps.current-time.outputs.formattedTime}}
+#          region: ap-northeast-2  # 서울 ap-northeast-2
+#          deployment_package: deploy/deploy.zip    #s3에 접근하여 deploy.zip을 넣겠다.

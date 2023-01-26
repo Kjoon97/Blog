@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableJpaAuditing  // 생성/수정 날짜,시간 자동화
 @SpringBootApplication
-@PropertySource("classpath:/env.properties")
 public class BlogApplication {
 
 	//비밀번호 해쉬 인코딩 매소드 빈 등록
