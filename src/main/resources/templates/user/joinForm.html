@@ -12,35 +12,33 @@
 <div class="container">
     <form>
         <div class="form-group">
-            <label for="username">username:</label>
-            <input type="text" class="form-control" placeholder="Enter username" id="username">
+            <label for="username">ID:</label>
+            <input type="text" class="form-control" placeholder="Enter ID" id="username">
         </div>
         <!--  username 검증 메세지    -->
         <p id="valid_username"></p>
 
         <div class="form-group">
-            <label for="email">email:</label>
-            <input type="email" class="form-control" placeholder="Enter email" id="email">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" placeholder="Enter Email" id="email">
         </div>
         <!--  email 검증 메세지    -->
         <p id="valid_email"></p>
 
         <div class="form-group">
-            <label for="password">password:</label>
-            <input type="password" class="form-control" placeholder="Enter password" id="password">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" placeholder="Enter Password" id="password">
         </div>
         <!-- password 검증 메세지    -->
         <p id="valid_password"></p>
-
-        <br/>
         <hr class="my-4">
     </form>
     <div class="row">
         <div class="col">
-            <button id="btn-save" class="w-100 btn btn-primary btn-lg">회원 가입</button>
+            <button id="btn-save" class="w-100 btn btn-outline-dark btn-lg">회원 가입</button>
         </div>
         <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='items.html'" th:onclick="|location.href='@{/}'|" type="button">취소</button>
+            <button class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'" th:onclick="|location.href='@{/}'|" type="button">취소</button>
         </div>
     </div>
 </div>
