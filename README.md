@@ -55,22 +55,24 @@
 <image src= "https://user-images.githubusercontent.com/70521476/215020135-4cae4f84-c5cb-4dc3-b208-6a6b8c1eed14.png" width="800" height="450">
 
 #### 로그인
-<image src= "https://user-images.githubusercontent.com/70521476/215019515-e28e3fb3-e47b-43fe-89a1-2fbe95714cbd.png" width="800" height="450">
+<img width="800" alt="로그인" src="https://user-images.githubusercontent.com/70521476/215053211-a930836b-d706-477a-ba3f-f8a4a84b6ae6.png">
 
 #### 회원가입
-<image src= "https://user-images.githubusercontent.com/70521476/215020165-8b1cd8d5-6835-4be6-9f11-6e3eaeed6978.png" width="800" height="450">
+<img width="800" alt="회원 가입" src="https://user-images.githubusercontent.com/70521476/215053260-403dd3d7-1a61-49d2-a2c7-9de553cae947.png">
 
 #### 비밀 번호 찾기
-<image src= "https://user-images.githubusercontent.com/70521476/215020208-01a42cfc-404e-4f5c-91e1-6d8576dd66e8.png" width="800" height="450">
+<img width="800" alt="비밀번호 찾기" src="https://user-images.githubusercontent.com/70521476/215053301-7fbcb23d-9feb-4110-a388-b7244c116f89.png">
 
 
 #### validation - 비밀 번호 찾기, 회원 수정, 회원 가입, 로그인
-<image src= "https://user-images.githubusercontent.com/70521476/215020240-dcb75618-cbb9-448d-bcf6-3ef113f5fd48.png" width="800" height="450">
-<image src= "https://user-images.githubusercontent.com/70521476/215020242-f73dc5e0-fa29-4fe5-b3ba-5da78607f779.png" width="800" height="450">
-<image src= "https://user-images.githubusercontent.com/70521476/215020243-f29aea75-fe7a-449d-a9d6-a50676c64028.png" width="800" height="450">
+<img width="800" alt="비번찾기 valid" src="https://user-images.githubusercontent.com/70521476/215053410-9a171c6c-75b5-43a4-8642-e6cc501b661b.png">
+<img width="800" alt="회원가입 valid" src="https://user-images.githubusercontent.com/70521476/215053416-7e9a45bc-3233-428b-b569-7961a4eef4c5.png">
+<img width="800" alt="로그인 valid" src="https://user-images.githubusercontent.com/70521476/215053418-2a0512a1-644d-4b3f-bd74-f4a1022bbded.png">
+
 
 #### 카테고리
-<image src= "https://user-images.githubusercontent.com/70521476/215025912-c7c92dc7-a832-4ee1-a93d-a412b688b0c4.png" width="800">
+<image src= "https://user-images.githubusercontent.com/70521476/215053792-a19bfbcf-96a5-4262-9800-432e196c347b.png" width="800">
+
 
 #### 검색
-<image src= "https://user-images.githubusercontent.com/70521476/215025906-3a6b7abc-a5c7-4b02-9875-2cdaf1d1bbf6.png" width="800">
+<image src= "https://user-images.githubusercontent.com/70521476/215053916-2ec98b94-268b-4cbf-8053-43cca10cc94e.png" width="800">
