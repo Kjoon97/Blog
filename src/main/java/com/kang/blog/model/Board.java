@@ -20,6 +20,7 @@ import java.util.Locale;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(indexes = @Index(name="idx_title", columnList="title"))
 public class Board {
 
     @Id
